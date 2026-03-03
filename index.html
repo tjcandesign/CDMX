@@ -182,6 +182,10 @@
     transform: scale(0.98);
     background: var(--card-hover);
   }
+  .venue-card.maybe {
+    border-style: dashed;
+    opacity: 0.7;
+  }
   .venue-top {
     display: flex;
     justify-content: space-between;
@@ -207,6 +211,7 @@
   .venue-tag.culture { background: var(--tag-culture); color: var(--culture); }
   .venue-tag.wellness { background: var(--tag-wellness); color: var(--wellness); }
   .venue-tag.shopping { background: var(--tag-shopping); color: var(--shopping); }
+  .venue-tag.maybe { background: rgba(136,136,136,0.15); color: var(--muted); }
 
   .venue-type {
     font-size: 13px;
@@ -328,9 +333,13 @@
     overflow: hidden;
     margin-top: 12px;
     border: 1px solid var(--border);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
   }
   #map-container.active { display: block; }
-  #map { height: 100%; width: 100%; }
+  #map { height: 100%; width: 100%; border-radius: 14px; }
   .leaflet-popup-content-wrapper {
     background: var(--card) !important;
     color: var(--text) !important;
@@ -416,6 +425,54 @@
   }
   .home-base-address a { color: var(--accent2); text-decoration: none; }
 
+  /* Flight info */
+  .flight-card {
+    margin-top: 12px;
+    background: linear-gradient(135deg, rgba(71,184,232,0.08), rgba(163,71,232,0.08));
+    border: 1px solid rgba(71,184,232,0.2);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .flight-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent2);
+  }
+  .flight-route {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .flight-legs {
+    margin-top: 10px;
+  }
+  .flight-leg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(71,184,232,0.1);
+  }
+  .flight-leg:last-child { border-bottom: none; }
+  .flight-leg-route { font-size: 14px; font-weight: 600; }
+  .flight-leg-time { font-size: 13px; color: var(--muted); }
+  .flight-leg-detail { font-size: 12px; color: var(--muted); }
+  .flight-conf {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  .flight-conf-code {
+    font-weight: 700;
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
   /* Quick ref */
   .quick-ref {
     margin-top: 16px;
@@ -453,8 +510,9 @@
     <button class="tab" data-day="wed">Wed 4th<span class="day-label">Arrival</span></button>
     <button class="tab" data-day="thu">Thu 5th<span class="day-label">Museums</span></button>
     <button class="tab" data-day="fri">Fri 6th<span class="day-label">Explore</span></button>
-    <button class="tab" data-day="sat">Sat 7th<span class="day-label">Coyoacán</span></button>
+    <button class="tab" data-day="sat">Sat 7th<span class="day-label">Roma</span></button>
     <button class="tab" data-day="sun">Sun 8th<span class="day-label">Market</span></button>
+    <button class="tab" data-day="mon">Mon 9th<span class="day-label">Fly home</span></button>
   </div>
 </div>
 
@@ -481,18 +539,16 @@
         <div class="overview-highlights">
           <span class="overview-chip">Roma dining</span>
           <span class="overview-chip">Wine bars</span>
-          <span class="overview-chip">Cocktails</span>
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('thu')">
         <div class="overview-day">Thursday</div>
         <div class="overview-date">March 5 — Rainy Day Museums</div>
-        <div class="overview-theme">Antropología Museum + indoor spots</div>
+        <div class="overview-theme">Antropología Museum + indoor activities</div>
         <div class="overview-highlights">
           <span class="overview-chip">Antropología</span>
-          <span class="overview-chip">MODO</span>
           <span class="overview-chip">Yoga</span>
-          <span class="overview-chip">Speakeasy</span>
+          <span class="overview-chip">MODO (maybe)</span>
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('fri')">
@@ -507,41 +563,39 @@
       </div>
       <div class="overview-card" onclick="switchDay('sat')">
         <div class="overview-day">Saturday</div>
-        <div class="overview-date">March 7 — Coyoacán</div>
-        <div class="overview-theme">Frida Kahlo Museum morning → explore Coyoacán</div>
+        <div class="overview-date">March 7 — Roma Neighborhood Day</div>
+        <div class="overview-theme">Sleep in, explore Roma, galleries, wine night</div>
         <div class="overview-highlights">
-          <span class="overview-chip">Frida Kahlo 🎟️</span>
-          <span class="overview-chip">Coyoacán</span>
+          <span class="overview-chip">Mooni gallery</span>
+          <span class="overview-chip">Roma stroll</span>
           <span class="overview-chip">Wine night</span>
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('sun')">
         <div class="overview-day">Sunday</div>
-        <div class="overview-date">March 8 — Market Day</div>
-        <div class="overview-theme">La Lagunilla flea market → walk back through Centro</div>
+        <div class="overview-date">March 8 — Market + Library</div>
+        <div class="overview-theme">La Lagunilla flea market → Biblioteca Vasconcelos → Centro</div>
         <div class="overview-highlights">
           <span class="overview-chip">Flea market</span>
+          <span class="overview-chip">Biblioteca Vasconcelos</span>
           <span class="overview-chip">Zócalo</span>
           <span class="overview-chip">Templo Mayor</span>
         </div>
       </div>
-      <div class="overview-card" style="opacity:0.5">
+      <div class="overview-card" onclick="switchDay('mon')">
         <div class="overview-day">Monday</div>
-        <div class="overview-date">March 9 — Departure</div>
-        <div class="overview-theme">Morning flight home</div>
+        <div class="overview-date">March 9 — Fly Home</div>
+        <div class="overview-theme">MEX → ATL → DCA · Departs 11:30am</div>
+        <div class="overview-highlights">
+          <span class="overview-chip">DL576 · DL325</span>
+          <span class="overview-chip">G7OWXH</span>
+        </div>
       </div>
     </div>
 
     <!-- ACTION ITEMS -->
     <div class="action-section">
       <div class="action-title">Action Items</div>
-      <div class="action-item">
-        <div class="action-check" onclick="this.classList.toggle('done')"></div>
-        <div class="action-text">
-          Buy 2 Frida Kahlo tickets — Saturday March 7, 10am
-          <span class="action-sub"><a href="https://boletos.museofridakahlo.org.mx/en/tickets/museo-frida-kahlo-cdmx" target="_blank">Official ticket portal ↗</a> — ~$320 MXN each ($640 total)</span>
-        </div>
-      </div>
       <div class="action-item">
         <div class="action-check" onclick="this.classList.toggle('done')"></div>
         <div class="action-text">
@@ -552,32 +606,48 @@
       <div class="action-item">
         <div class="action-check" onclick="this.classList.toggle('done')"></div>
         <div class="action-text">
-          Reserve Handshake Speakeasy — Thursday evening
-          <span class="action-sub"><a href="https://www.opentable.com/r/handshake-speakeasy-juarez" target="_blank">Book on OpenTable ↗</a> — 2 people, ~8pm. CC required.</span>
+          Reserve Contramar — Friday noon walk-in
+          <span class="action-sub">Arrive right at 12pm when doors open. Durango 200, Roma Norte.</span>
         </div>
       </div>
-      <div class="action-item">
-        <div class="action-check" onclick="this.classList.toggle('done')"></div>
-        <div class="action-text">
-          Reserve Licorería Limantour (Roma) — for drinks one evening
-          <span class="action-sub"><a href="https://www.opentable.com/r/licoreria-limantour-ciudad-de-mexico" target="_blank">Book on OpenTable ↗</a></span>
+    </div>
+
+    <!-- FLIGHT INFO -->
+    <div class="flight-card">
+      <div class="flight-label">Return Flight — Monday, March 9</div>
+      <div class="flight-route">MEX → ATL → DCA</div>
+      <div class="flight-legs">
+        <div class="flight-leg">
+          <div>
+            <div class="flight-leg-route">MEX → ATL</div>
+            <div class="flight-leg-detail">DL576</div>
+          </div>
+          <div class="flight-leg-time">11:30am – 4:50pm</div>
         </div>
+        <div class="flight-leg">
+          <div>
+            <div class="flight-leg-route">ATL → DCA</div>
+            <div class="flight-leg-detail">DL325</div>
+          </div>
+          <div class="flight-leg-time">7:00pm – 8:40pm</div>
+        </div>
+      </div>
+      <div class="flight-conf">
+        <span>Melissa Cichecki</span>
+        <span class="flight-conf-code">G7OWXH</span>
       </div>
     </div>
 
     <div class="quick-ref">
       <div class="quick-ref-title">Quick Reference</div>
       <div class="quick-ref-item">Antropología Museum <span>Tue–Sun 9am–6pm · $210 MXN</span></div>
-      <div class="quick-ref-item">Frida Kahlo Museum <span>Tue–Sun 10am–6pm · $320 MXN</span></div>
       <div class="quick-ref-item">Chapultepec Castle <span>Tue–Sun 9am–5pm · $210 MXN</span></div>
-      <div class="quick-ref-item">MODO Museum <span>Tue–Sun 10am–6pm · $60 MXN</span></div>
-      <div class="quick-ref-item">Templo Mayor <span>Tue–Sun 9am–5pm · $100 MXN</span></div>
       <div class="quick-ref-item">Museo de Arte Moderno <span>Tue–Sun 10:30am–5:30pm · $70 MXN</span></div>
+      <div class="quick-ref-item">Templo Mayor <span>Tue–Sun 9am–5pm · Free Sundays!</span></div>
       <div class="quick-ref-item">Biblioteca Vasconcelos <span>Daily 8:30am–7:30pm · Free</span></div>
+      <div class="quick-ref-item">MODO Museum (maybe) <span>Tue–Sun 10am–6pm · $60 MXN</span></div>
       <div class="quick-ref-item">La Lagunilla Market <span>Sundays 9am–5pm · Free</span></div>
       <div class="quick-ref-item">Contramar <span>Mon–Fri 12–8pm, Sat–Sun 11am–8pm</span></div>
-      <div class="quick-ref-item">Handshake Speakeasy <span>Daily 6pm–1am (Fri–Sat til 2am)</span></div>
-      <div class="quick-ref-item">Limantour (Roma) <span>Mon–Sat 6pm–2am, Sun 6–11pm</span></div>
       <div class="quick-ref-item">Ātma Yoga <span>Daily from 6am · Bilingual · $300 MXN</span></div>
     </div>
   </div>
@@ -607,23 +677,23 @@
       <div class="venue-card">
         <div class="venue-top">
           <div>
-            <div class="venue-name">Expendio de Maíz</div>
-            <div class="venue-type">Elevated Mexican corn-based cuisine</div>
+            <div class="venue-name">FRITANGUITA</div>
+            <div class="venue-type">Tacos — right in the neighborhood</div>
           </div>
           <span class="venue-tag food">Food</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">🚶 ~10 min walk</span>
+          <span class="venue-detail">🚶 Very close</span>
           <span class="venue-detail">📍 Roma Norte</span>
         </div>
-        <div class="venue-note">Outstanding maíz-focused tasting. Arrive early.</div>
+        <div class="venue-note">Perfect first-night tacos. Casual, delicious, easy.</div>
       </div>
 
       <div class="alt-options">
         <div class="alt-label">Or try</div>
-        <div class="alt-item">FRITANGUITA <span>Tacos · very close</span></div>
         <div class="alt-item">Tacos del Valle <span>Roma Norte tacos</span></div>
         <div class="alt-item">Stella's <span>Greek · neighborhood</span></div>
+        <div class="alt-item">Masala y Maíz <span>Indian-Mexican fusion</span></div>
       </div>
     </div>
 
@@ -703,14 +773,14 @@
     </div>
 
     <div class="time-block">
-      <div class="time-label">3:00 PM — Afternoon</div>
-      <div class="venue-card">
+      <div class="time-label">3:00 PM — Afternoon (Maybe)</div>
+      <div class="venue-card maybe">
         <div class="venue-top">
           <div>
             <div class="venue-name">MODO — Museo del Objeto</div>
             <div class="venue-type">Quirky design & everyday objects museum</div>
           </div>
-          <span class="venue-tag culture">Culture</span>
+          <span class="venue-tag maybe">Maybe</span>
         </div>
         <div class="venue-details">
           <span class="venue-detail">🚶 ~5 min from hotel</span>
@@ -718,12 +788,7 @@
           <span class="venue-detail">💰 $60 MXN</span>
         </div>
         <div class="venue-address">Colima 145, Roma Norte · <a href="https://maps.apple.com/?q=MODO+Museo+del+Objeto+Roma+Norte" target="_blank">Maps ↗</a></div>
-        <div class="venue-note">Quick 45-min visit. Right in the neighborhood — perfect for a rainy afternoon.</div>
-      </div>
-
-      <div class="alt-options">
-        <div class="alt-label">Or swap for</div>
-        <div class="alt-item">Biblioteca Vasconcelos <span>Stunning library · 20 min Uber</span></div>
+        <div class="venue-note">If you have energy after Antropología. Quick 45-min visit, right in the neighborhood.</div>
       </div>
     </div>
 
@@ -751,22 +816,24 @@
     </div>
 
     <div class="time-block">
-      <div class="time-label">8:00 PM — Cocktails</div>
+      <div class="time-label">8:00 PM — Drinks</div>
       <div class="venue-card">
         <div class="venue-top">
           <div>
-            <div class="venue-name">Handshake Speakeasy</div>
-            <div class="venue-type">Top 50 bar in the world</div>
+            <div class="venue-name">Salón Palomilla</div>
+            <div class="venue-type">Cocktail bar</div>
           </div>
           <span class="venue-tag drinks">Drinks</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">🚶 ~15 min walk</span>
-          <span class="venue-detail">⏰ 6pm–1am</span>
-          <span class="venue-detail">📋 Reservation required</span>
+          <span class="venue-detail">📍 Roma</span>
         </div>
-        <div class="venue-address">Amberes 65, Juárez · <a href="https://maps.apple.com/?q=Handshake+Speakeasy+Amberes+65+Mexico+City" target="_blank">Maps ↗</a></div>
-        <div class="venue-note">Book on OpenTable. 90-min seating. CC hold required. $250 MXN no-show fee.</div>
+      </div>
+
+      <div class="alt-options">
+        <div class="alt-label">Or try</div>
+        <div class="alt-item">Bar Mauro <span>Cocktail bar</span></div>
+        <div class="alt-item">LENEZ Gastro-Bar <span>Wine gastro-bar</span></div>
       </div>
     </div>
   </div>
@@ -882,7 +949,7 @@
       <div class="venue-card">
         <div class="venue-top">
           <div>
-            <div class="venue-name">Salón Palomilla</div>
+            <div class="venue-name">Bar Mauro</div>
             <div class="venue-type">Cocktail bar</div>
           </div>
           <span class="venue-tag drinks">Drinks</span>
@@ -894,8 +961,8 @@
 
       <div class="alt-options">
         <div class="alt-label">Or try</div>
-        <div class="alt-item">Bar Mauro <span>Cocktail bar</span></div>
         <div class="alt-item">LENEZ Gastro-Bar <span>Wine gastro-bar</span></div>
+        <div class="alt-item">Salón Palomilla <span>Cocktail bar</span></div>
       </div>
     </div>
   </div>
@@ -904,75 +971,11 @@
   <div class="day-section" id="day-sat">
     <div class="day-header">
       <div class="day-date">Saturday, March 7</div>
-      <div class="day-theme">Frida Kahlo Morning → Coyoacán Exploration</div>
+      <div class="day-theme">Roma Neighborhood Day — Sleep In, Explore, Wine Night</div>
     </div>
 
     <div class="time-block">
-      <div class="time-label">9:15 AM — Head to Coyoacán</div>
-      <div class="venue-card">
-        <div class="venue-top">
-          <div>
-            <div class="venue-name">Uber/Taxi to Coyoacán</div>
-            <div class="venue-type">~30–40 min ride from Roma</div>
-          </div>
-        </div>
-        <div class="venue-note">Leave by 9:15 to arrive before 10am entry slot.</div>
-      </div>
-    </div>
-
-    <div class="time-block">
-      <div class="time-label">10:00 AM — Museum</div>
-      <div class="venue-card">
-        <div class="venue-top">
-          <div>
-            <div class="venue-name">Museo Frida Kahlo (Casa Azul)</div>
-            <div class="venue-type">Frida's actual home — extraordinary</div>
-          </div>
-          <span class="venue-tag culture">Culture</span>
-        </div>
-        <div class="venue-details">
-          <span class="venue-detail">🎟️ Pre-booked 10am</span>
-          <span class="venue-detail">💰 $320 MXN ea</span>
-          <span class="venue-detail">⏱️ 1.5–2 hrs</span>
-          <span class="venue-detail">🚗 30–40 min from Roma</span>
-        </div>
-        <div class="venue-address">Londres 247, Coyoacán · <a href="https://maps.apple.com/?q=Museo+Frida+Kahlo+Coyoacan+Mexico+City" target="_blank">Maps ↗</a></div>
-        <div class="venue-note">Tickets MUST be bought online. No walk-up sales. Buy +30 MXN photo permit at entrance.</div>
-      </div>
-    </div>
-
-    <div class="time-block">
-      <div class="time-label">12:00 PM — Explore Coyoacán</div>
-      <div class="venue-card">
-        <div class="venue-top">
-          <div>
-            <div class="venue-name">Coyoacán Neighborhood</div>
-            <div class="venue-type">Wander the charming plazas & markets</div>
-          </div>
-          <span class="venue-tag culture">Culture</span>
-        </div>
-        <div class="venue-details">
-          <span class="venue-detail">🚶 Walking</span>
-          <span class="venue-detail">⏱️ 2–3 hrs</span>
-        </div>
-        <div class="venue-note">Jardín Centenario plaza, Mercado de Coyoacán for lunch. Tostadas, churros, mezcal.</div>
-      </div>
-    </div>
-
-    <div class="time-block">
-      <div class="time-label">3:00 PM — Back to Roma</div>
-      <div class="venue-card">
-        <div class="venue-top">
-          <div>
-            <div class="venue-name">Rest & Recharge</div>
-            <div class="venue-type">Back to hotel — downtime before dinner</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="time-block">
-      <div class="time-label">7:00 PM — Dinner</div>
+      <div class="time-label">10:00 AM — Brunch / Late Start</div>
       <div class="venue-card">
         <div class="venue-top">
           <div>
@@ -984,12 +987,96 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Neighborhood</span>
         </div>
+        <div class="venue-note">Sleep in, grab a late brunch. Take it easy today.</div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">12:00 PM — Explore Roma</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Mooni Art Gallery</div>
+            <div class="venue-type">Contemporary art gallery</div>
+          </div>
+          <span class="venue-tag culture">Culture</span>
+        </div>
+        <div class="venue-details">
+          <span class="venue-detail">🚶 Neighborhood walk</span>
+        </div>
+        <div class="venue-note">Browse the gallery, then wander the Roma streets.</div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">1:00 PM — Browse</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Librería Porrúa / Librería Valladolid</div>
+            <div class="venue-type">Bookshops in Roma</div>
+          </div>
+          <span class="venue-tag culture">Culture</span>
+        </div>
+        <div class="venue-details">
+          <span class="venue-detail">🚶 Walking distance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">2:00 PM — Lunch</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Comal Oculto — Itacate</div>
+            <div class="venue-type">Traditional Mexican</div>
+          </div>
+          <span class="venue-tag food">Food</span>
+        </div>
+        <div class="venue-details">
+          <span class="venue-detail">📍 Roma</span>
+        </div>
       </div>
 
       <div class="alt-options">
         <div class="alt-label">Or try</div>
         <div class="alt-item">Maizajo <span>Restaurant</span></div>
-        <div class="alt-item">Comal Oculto <span>Mexican</span></div>
+        <div class="alt-item">Mi Compa Chava <span>Marisquería</span></div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">4:00 PM — Relax</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Rest & Recharge</div>
+            <div class="venue-type">Back to hotel — downtime before wine night</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">7:00 PM — Dinner</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">CHARCO</div>
+            <div class="venue-type">Restaurant + drinks</div>
+          </div>
+          <span class="venue-tag food">Food</span>
+        </div>
+        <div class="venue-details">
+          <span class="venue-detail">📍 Roma</span>
+        </div>
+      </div>
+
+      <div class="alt-options">
+        <div class="alt-label">Or try</div>
+        <div class="alt-item">Maizajo <span>Restaurant</span></div>
+        <div class="alt-item">ABRASAMAR <span>Seafood</span></div>
       </div>
     </div>
 
@@ -1011,7 +1098,7 @@
       <div class="alt-options">
         <div class="alt-label">Or try</div>
         <div class="alt-item">Rimessa Vinos <span>Wine store</span></div>
-        <div class="alt-item">Licorería Limantour <span>Opens 6pm · Roma</span></div>
+        <div class="alt-item">Hugo <span>Wine bar</span></div>
       </div>
     </div>
   </div>
@@ -1020,7 +1107,7 @@
   <div class="day-section" id="day-sun">
     <div class="day-header">
       <div class="day-date">Sunday, March 8</div>
-      <div class="day-theme">Flea Market → Walk Back Through Centro Histórico</div>
+      <div class="day-theme">Flea Market → Biblioteca Vasconcelos → Centro Histórico</div>
     </div>
 
     <div class="time-block">
@@ -1045,7 +1132,28 @@
     </div>
 
     <div class="time-block">
-      <div class="time-label">12:00 PM — Walk South Through Centro</div>
+      <div class="time-label">11:30 AM — Library</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Biblioteca Vasconcelos</div>
+            <div class="venue-type">Stunning "megabiblioteca" — must visit</div>
+          </div>
+          <span class="venue-tag culture">Culture</span>
+        </div>
+        <div class="venue-details">
+          <span class="venue-detail">🚶 ~20 min walk from market</span>
+          <span class="venue-detail">⏰ 8:30am–7:30pm daily</span>
+          <span class="venue-detail">💰 Free</span>
+          <span class="venue-detail">⏱️ 45 min–1 hr</span>
+        </div>
+        <div class="venue-address">Eje 1 Norte, Buenavista · <a href="https://maps.apple.com/?q=Biblioteca+Vasconcelos+Mexico+City" target="_blank">Maps ↗</a></div>
+        <div class="venue-note">~1.5 km walk from La Lagunilla. Both are in the north part of the city — pair perfectly together. Jaw-dropping architecture.</div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">1:00 PM — Walk South Through Centro</div>
       <div class="venue-card">
         <div class="venue-top">
           <div>
@@ -1055,14 +1163,14 @@
           <span class="venue-tag culture">Culture</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">🚶 ~15 min from market</span>
+          <span class="venue-detail">🚗 10 min Uber from library</span>
         </div>
-        <div class="venue-note">Walk south from La Lagunilla through Centro streets to the massive Zócalo.</div>
+        <div class="venue-note">Uber or walk south from Vasconcelos through Centro to the massive Zócalo.</div>
       </div>
     </div>
 
     <div class="time-block">
-      <div class="time-label">12:30 PM — Museum</div>
+      <div class="time-label">1:30 PM — Museum</div>
       <div class="venue-card">
         <div class="venue-top">
           <div>
@@ -1078,25 +1186,29 @@
           <span class="venue-detail">⏱️ 1–1.5 hrs</span>
         </div>
         <div class="venue-address"><a href="https://maps.apple.com/?q=Templo+Mayor+Museum+Mexico+City" target="_blank">Maps ↗</a></div>
-        <div class="venue-note">Free admission on Sundays. Incredible Aztec archaeology.</div>
+        <div class="venue-note">Free admission on Sundays. Incredible Aztec archaeology. Right next to Zócalo.</div>
       </div>
     </div>
 
     <div class="time-block">
-      <div class="time-label">2:00 PM — Lunch in Centro</div>
+      <div class="time-label">3:00 PM — Lunch in Centro</div>
       <div class="venue-card">
         <div class="venue-top">
           <div>
-            <div class="venue-name">La Opera</div>
-            <div class="venue-type">Historic grill — since 1876</div>
+            <div class="venue-name">CHARCO</div>
+            <div class="venue-type">Restaurant + drinks — close to Zócalo</div>
           </div>
           <span class="venue-tag food">Food</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">🚶 5 min from Zócalo</span>
-          <span class="venue-detail">📍 Centro Histórico</span>
+          <span class="venue-detail">🚶 Walking distance from Zócalo</span>
+          <span class="venue-detail">📍 Centro area</span>
         </div>
-        <div class="venue-note">Legendary cantina. There's a bullet hole in the ceiling from Pancho Villa.</div>
+      </div>
+
+      <div class="alt-options">
+        <div class="alt-label">Or try</div>
+        <div class="alt-item">La Opera <span>Historic grill · 5 min from Zócalo</span></div>
       </div>
     </div>
 
@@ -1132,8 +1244,8 @@
       <div class="alt-options">
         <div class="alt-label">Still on the list</div>
         <div class="alt-item">Mi Compa Chava Marisquería <span>Seafood</span></div>
-        <div class="alt-item">CHARCO <span>Restaurant + drinks</span></div>
         <div class="alt-item">Maizajo <span>Restaurant</span></div>
+        <div class="alt-item">CHARCO <span>Restaurant + drinks</span></div>
       </div>
     </div>
 
@@ -1142,20 +1254,70 @@
       <div class="venue-card">
         <div class="venue-top">
           <div>
-            <div class="venue-name">Licorería Limantour</div>
-            <div class="venue-type">World-famous cocktail bar (Roma location)</div>
+            <div class="venue-name">Rimessa Vinos</div>
+            <div class="venue-type">Wine store — last-night bottles</div>
           </div>
           <span class="venue-tag drinks">Drinks</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">🚶 Walking distance</span>
-          <span class="venue-detail">⏰ 6pm–11pm Sun</span>
-          <span class="venue-detail">📍 Álvaro Obregón 106</span>
+          <span class="venue-detail">📍 Roma</span>
         </div>
-        <div class="venue-note">Closes earlier on Sunday (11pm). Great way to end the trip.</div>
+      </div>
+
+      <div class="alt-options">
+        <div class="alt-label">Or try</div>
+        <div class="alt-item">NIV <span>Wine bar</span></div>
+        <div class="alt-item">Fantasma <span>Wine store</span></div>
       </div>
     </div>
   </div>
+
+  <!-- MONDAY -->
+  <div class="day-section" id="day-mon">
+    <div class="day-header">
+      <div class="day-date">Monday, March 9</div>
+      <div class="day-theme">Fly Home — MEX → ATL → DCA</div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-label">8:30 AM — Check Out</div>
+      <div class="venue-card">
+        <div class="venue-top">
+          <div>
+            <div class="venue-name">Check out & head to MEX airport</div>
+            <div class="venue-type">Allow ~45 min to airport + 2 hrs before flight</div>
+          </div>
+        </div>
+        <div class="venue-note">Leave hotel by 8:30am latest. International flight = arrive by 9:30am.</div>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <div class="flight-label">Return Flight</div>
+      <div class="flight-route">MEX → ATL → DCA</div>
+      <div class="flight-legs">
+        <div class="flight-leg">
+          <div>
+            <div class="flight-leg-route">MEX → ATL</div>
+            <div class="flight-leg-detail">Delta DL576</div>
+          </div>
+          <div class="flight-leg-time">11:30am – 4:50pm</div>
+        </div>
+        <div class="flight-leg">
+          <div>
+            <div class="flight-leg-route">ATL → DCA</div>
+            <div class="flight-leg-detail">Delta DL325</div>
+          </div>
+          <div class="flight-leg-time">7:00pm – 8:40pm</div>
+        </div>
+      </div>
+      <div class="flight-conf">
+        <span>Melissa Cichecki</span>
+        <span class="flight-conf-code">G7OWXH</span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div id="map-container">
@@ -1212,43 +1374,40 @@ btnMap.addEventListener('click', () => {
 
 // Map
 const locations = {
-  hotel: { lat: 19.4145, lng: -99.1618, name: 'Hotel — Medellín 242', cat: 'home', days: ['overview','wed','thu','fri','sat','sun'] },
+  hotel: { lat: 19.4145, lng: -99.1618, name: 'Hotel — Medellín 242', cat: 'home', days: ['overview','wed','thu','fri','sat','sun','mon'] },
   // Food
-  expendio: { lat: 19.4125, lng: -99.1615, name: 'Expendio de Maíz', cat: 'food', days: ['wed'] },
   fritanguita: { lat: 19.4170, lng: -99.1640, name: 'FRITANGUITA', cat: 'food', days: ['wed'] },
   tacosValle: { lat: 19.4155, lng: -99.1630, name: 'Tacos del Valle', cat: 'food', days: ['wed'] },
   stellas: { lat: 19.4160, lng: -99.1645, name: "Stella's", cat: 'food', days: ['wed'] },
-  masala: { lat: 19.4135, lng: -99.1622, name: 'Masala y Maíz', cat: 'food', days: ['thu'] },
+  masala: { lat: 19.4135, lng: -99.1622, name: 'Masala y Maíz', cat: 'food', days: ['thu','wed'] },
   contramar: { lat: 19.4195, lng: -99.1672, name: 'Contramar', cat: 'food', days: ['fri'] },
-  abrasamar: { lat: 19.4148, lng: -99.1625, name: 'ABRASAMAR', cat: 'food', days: ['fri'] },
+  abrasamar: { lat: 19.4148, lng: -99.1625, name: 'ABRASAMAR', cat: 'food', days: ['fri','sat'] },
   jennis: { lat: 19.4152, lng: -99.1635, name: "Jenni's Quesadillas", cat: 'food', days: ['sat'] },
   laOpera: { lat: 19.4350, lng: -99.1398, name: 'La Opera', cat: 'food', days: ['sun'] },
-  compa: { lat: 19.4162, lng: -99.1600, name: 'Mi Compa Chava', cat: 'food', days: ['sun'] },
-  charco: { lat: 19.4138, lng: -99.1610, name: 'CHARCO', cat: 'food', days: ['sun'] },
-  maizajo: { lat: 19.4175, lng: -99.1650, name: 'Maizajo', cat: 'food', days: ['sun','sat'] },
+  compa: { lat: 19.4162, lng: -99.1600, name: 'Mi Compa Chava', cat: 'food', days: ['fri','sat','sun'] },
+  charco: { lat: 19.4138, lng: -99.1610, name: 'CHARCO', cat: 'food', days: ['wed','sat','sun'] },
+  laOpera: { lat: 19.4350, lng: -99.1398, name: 'La Opera', cat: 'food', days: ['sun'] },
+  maizajo: { lat: 19.4175, lng: -99.1650, name: 'Maizajo', cat: 'food', days: ['thu','sat','sun'] },
   comal: { lat: 19.4180, lng: -99.1660, name: 'Comal Oculto', cat: 'food', days: ['fri','sat'] },
   // Drinks
-  niv: { lat: 19.4148, lng: -99.1658, name: 'NIV Wine Bar', cat: 'drinks', days: ['wed'] },
-  hugo: { lat: 19.4140, lng: -99.1650, name: 'Hugo Wine Bar', cat: 'drinks', days: ['wed'] },
+  niv: { lat: 19.4148, lng: -99.1658, name: 'NIV Wine Bar', cat: 'drinks', days: ['wed','sun'] },
+  hugo: { lat: 19.4140, lng: -99.1650, name: 'Hugo Wine Bar', cat: 'drinks', days: ['wed','sat'] },
   cmb: { lat: 19.4158, lng: -99.1648, name: 'Wine Bar by CMB', cat: 'drinks', days: ['wed'] },
-  handshake: { lat: 19.4262, lng: -99.1630, name: 'Handshake Speakeasy', cat: 'drinks', days: ['thu'] },
-  palomilla: { lat: 19.4165, lng: -99.1655, name: 'Salón Palomilla', cat: 'drinks', days: ['fri'] },
-  barMauro: { lat: 19.4172, lng: -99.1642, name: 'Bar Mauro', cat: 'drinks', days: ['fri'] },
-  lenez: { lat: 19.4155, lng: -99.1615, name: 'LENEZ Gastro-Bar', cat: 'drinks', days: ['fri'] },
-  fantasma: { lat: 19.4142, lng: -99.1640, name: 'Fantasma', cat: 'drinks', days: ['sat'] },
-  rimessa: { lat: 19.4135, lng: -99.1632, name: 'Rimessa Vinos', cat: 'drinks', days: ['sat'] },
-  limantour: { lat: 19.4180, lng: -99.1665, name: 'Licorería Limantour', cat: 'drinks', days: ['sun','sat'] },
+  palomilla: { lat: 19.4165, lng: -99.1655, name: 'Salón Palomilla', cat: 'drinks', days: ['thu','fri'] },
+  barMauro: { lat: 19.4172, lng: -99.1642, name: 'Bar Mauro', cat: 'drinks', days: ['fri','thu'] },
+  lenez: { lat: 19.4155, lng: -99.1615, name: 'LENEZ Gastro-Bar', cat: 'drinks', days: ['fri','thu'] },
+  fantasma: { lat: 19.4142, lng: -99.1640, name: 'Fantasma', cat: 'drinks', days: ['sat','sun'] },
+  rimessa: { lat: 19.4135, lng: -99.1632, name: 'Rimessa Vinos', cat: 'drinks', days: ['sat','sun'] },
   // Culture
   antropologia: { lat: 19.4260, lng: -99.1862, name: 'Museo Nacional de Antropología', cat: 'culture', days: ['thu'] },
-  modo: { lat: 19.4192, lng: -99.1630, name: 'MODO Museum', cat: 'culture', days: ['thu'] },
-  vasconcelos: { lat: 19.4465, lng: -99.1509, name: 'Biblioteca Vasconcelos', cat: 'culture', days: ['thu'] },
+  modo: { lat: 19.4192, lng: -99.1630, name: 'MODO Museum (maybe)', cat: 'culture', days: ['thu'] },
+  vasconcelos: { lat: 19.4465, lng: -99.1509, name: 'Biblioteca Vasconcelos', cat: 'culture', days: ['sun'] },
   castle: { lat: 19.4205, lng: -99.1818, name: 'Chapultepec Castle', cat: 'culture', days: ['fri'] },
   mam: { lat: 19.4230, lng: -99.1780, name: 'Museo de Arte Moderno', cat: 'culture', days: ['fri'] },
-  frida: { lat: 19.3554, lng: -99.1626, name: 'Museo Frida Kahlo', cat: 'culture', days: ['sat'] },
   zocalo: { lat: 19.4326, lng: -99.1332, name: 'Zócalo', cat: 'culture', days: ['sun'] },
   temploMayor: { lat: 19.4348, lng: -99.1316, name: 'Templo Mayor', cat: 'culture', days: ['sun'] },
-  porrua: { lat: 19.4168, lng: -99.1620, name: 'Librería Porrúa', cat: 'culture', days: ['fri'] },
-  mooni: { lat: 19.4155, lng: -99.1610, name: 'Mooni Gallery', cat: 'culture', days: ['fri'] },
+  porrua: { lat: 19.4168, lng: -99.1620, name: 'Librería Porrúa', cat: 'culture', days: ['fri','sat'] },
+  mooni: { lat: 19.4155, lng: -99.1610, name: 'Mooni Gallery', cat: 'culture', days: ['sat'] },
   // Wellness
   atma: { lat: 19.4178, lng: -99.1595, name: 'Ātma Yoga', cat: 'wellness', days: ['thu'] },
   // Shopping

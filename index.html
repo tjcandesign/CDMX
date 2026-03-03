@@ -251,6 +251,68 @@
     text-decoration: none;
   }
 
+  /* Venue photos */
+  .venue-photo {
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .venue-photo.hero {
+    height: 160px;
+  }
+  .venue-photo.small {
+    height: 100px;
+  }
+  .venue-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(transparent, rgba(26,26,26,0.9));
+  }
+
+  /* Expandable details */
+  .venue-expand-btn {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--accent2);
+    cursor: pointer;
+    padding: 4px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    user-select: none;
+  }
+  .venue-expand-btn:hover { opacity: 0.8; }
+  .venue-expand {
+    display: none;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .venue-card.expanded .venue-expand {
+    display: block;
+  }
+  .venue-expand-item {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .venue-expand-item strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
   /* Divider */
   .alt-options {
     margin-top: 6px;
@@ -686,7 +748,13 @@
           <span class="venue-detail">🚶 Very close</span>
           <span class="venue-detail">📍 Roma Norte</span>
         </div>
+        <div class="venue-address">Puebla 236, corner of Medellín · <a href="https://www.google.com/maps/search/Fritanguita+Puebla+236+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Perfect first-night tacos. Casual, delicious, easy.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding it</strong>Street food stand on the corner of Puebla & Medellín — look for the outdoor cooking setup and stools. Not a sit-down restaurant.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Created by chef Daniel Nates in collaboration with Santiago Muñoz of Maizajo. Known for chilaquiles capeados. Cash likely. Open Mon–Sat 9am–5pm.</div>
+        </div>
       </div>
 
       <div class="alt-options">
@@ -711,6 +779,7 @@
           <span class="venue-detail">🚶 Walking distance</span>
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/NIV+Wine+Bar+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Relaxed first-night wine. No need to go hard.</div>
       </div>
 
@@ -748,12 +817,18 @@
         </div>
         <div class="venue-address">Av. Yucatán 69, 2nd Floor, Roma Norte · <a href="https://www.google.com/maps/search/Atma+Yoga+Yucatan+69+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Book via Mindbody app. 90-min classes. Mats provided.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Street-level door on Yucatán — look for the Ātma signage, then head up to the 2nd floor. Spacious 120sqm shala with natural light.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Ashtanga, Vinyasa, Power, Hatha, and Yin classes. All levels welcome. Free tea bar, mat rental, rooftop, lockers, showers. Book on atmayogamx.com or Fresha. Drop-ins welcome.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">10:30 AM — Museum</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/94/Musee_National_Anthropologie-Entree.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Museo Nacional de Antropología</div>
@@ -769,12 +844,18 @@
         </div>
         <div class="venue-address">Chapultepec Park · <a href="https://www.google.com/maps/search/Museo+Nacional+de+Antropologia+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">The crown jewel. Don't rush — the Aztec & Maya halls alone are worth the trip.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Main entrance is on Av. Mahatma Gandhi in Chapultepec Park. Look for the massive stone Tlaloc monolith outside. If arriving by Uber, ask to be dropped at the Calzada Mahatma Gandhi side — calmer and closer to ticket counters.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Arrive by 9am to beat lines. Large bags must be checked at free lockers near the entrance. Restrooms are only near the entrance — go before starting your tour. The Aztec and Maya halls are the most popular; start there if short on time. Closed Mondays.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">3:00 PM — Afternoon</div>
       <div class="venue-card">
+        <div class="venue-photo small" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d4/FacadeMODO.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">MODO — Museo del Objeto</div>
@@ -789,6 +870,11 @@
         </div>
         <div class="venue-address">Colima 145, Roma Norte · <a href="https://www.google.com/maps/search/MODO+Museo+del+Objeto+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Quick 45-min visit, right in the neighborhood. Mooni is half a block away — hit both.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Occupies one of only eight remaining Art Nouveau buildings in Mexico City, built in 1906. The ornate facade on Colima street is unmistakable — look for the decorative stonework entrance.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Exhibitions rotate regularly, connecting everyday objects to culture. The collection spans 100,000+ objects from 19th century to present. Small museum — 45 min to 1 hr is plenty. Combine with Mooni at Colima 129 right around the corner.</div>
+        </div>
       </div>
       <div class="venue-card">
         <div class="venue-top">
@@ -801,24 +887,37 @@
         <div class="venue-details">
           <span class="venue-detail">🚶 Half a block from MODO</span>
         </div>
-        <div class="venue-address"><a href="https://www.google.com/maps/search/Mooni+gallery+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
+        <div class="venue-address">Colima 129, Roma Norte · <a href="https://www.google.com/maps/search/Mooni+gallery+Colima+129+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Pop in while you're at MODO — they're basically neighbors.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding it</strong>Street-level entrance at Colima 129 — just steps from MODO at Colima 145. White-walled gallery, easy to spot along the gallery-lined street.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Focused on emerging artists — affordable contemporary art for sale. Free to enter. Open Mon–Sat 11am–7pm, Sun 11am–5pm. Check moonigallery.com for current exhibitions.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">5:30 PM — Dinner</div>
       <div class="venue-card">
+        <div class="venue-photo small" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5b/Masala_y_Maiz_%282025%29_1.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Masala y Maíz</div>
-            <div class="venue-type">Indian-Mexican fusion — incredibly unique</div>
+            <div class="venue-type">Indian-Mexican — one Michelin star</div>
           </div>
           <span class="venue-tag food">Food</span>
         </div>
         <div class="venue-details">
           <span class="venue-detail">🚶 Walking distance</span>
-          <span class="venue-detail">📍 Roma</span>
+          <span class="venue-detail">⏰ Noon–6pm only</span>
+          <span class="venue-detail">📍 Marsella 72, Juárez</span>
+        </div>
+        <div class="venue-address">Marsella 72, Col. Juárez · <a href="https://www.google.com/maps/search/Masala+y+Maiz+Marsella+72+Mexico+City" target="_blank">Maps ↗</a></div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Modest storefront on Marsella street — ring the bell or push through the door. Can feel like entering someone's house. That's the vibe.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>One Michelin star. Open noon–6pm only (chefs prioritize staff quality of life). Run by Norma Listman & Saqib Keval. Single communal table, shared dishes. "Mestizaje" cuisine — deliberate blend of Mexican and Indian traditions, not fusion. Reservations strongly recommended.</div>
         </div>
       </div>
 
@@ -842,6 +941,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Salon+Palomilla+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -862,6 +962,7 @@
     <div class="time-block">
       <div class="time-label">9:00 AM — Morning</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Castillo_de_Chapultepec_01.JPG/1280px-Castillo_de_Chapultepec_01.JPG')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Chapultepec Castle</div>
@@ -877,6 +978,11 @@
         </div>
         <div class="venue-address">Chapultepec Hill · <a href="https://www.google.com/maps/search/Chapultepec+Castle+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Arrive at 9am opening. Plan ~90 minutes including the hike up.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Access is on foot up a steep paved hill from Bosque de Chapultepec. Look for the Monumento a los Niños Héroes at the base — the walking path starts there. A small tram runs from near the base if you want to skip the uphill walk. For Uber, ask to be dropped near the Estela de Luz monument.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>No large bags, food, or drinks inside — lockers available near entrance. Bring water for the uphill walk but finish it before entering. Photography allowed without flash. Best to arrive right at 9am opening on a weekday.</div>
+        </div>
       </div>
     </div>
 
@@ -895,6 +1001,7 @@
           <span class="venue-detail">⏰ 10:30am–5:30pm</span>
           <span class="venue-detail">💰 $70 MXN</span>
         </div>
+        <div class="venue-address">Chapultepec Park · <a href="https://www.google.com/maps/search/Museo+de+Arte+Moderno+Chapultepec+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Quick stop on the walk back through the park. 45 min–1 hr.</div>
       </div>
     </div>
@@ -916,6 +1023,11 @@
         </div>
         <div class="venue-address">Durango 200, Roma Norte · <a href="https://www.google.com/maps/search/Contramar+Durango+200+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Walk-in — arrive right at noon when doors open. The tuna tostadas and grilled whole fish are legendary.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Large, open doorway along Durango street. You'll spot it by the line of people waiting outside during peak lunch hours. Nearest Metro: Sevilla (Line 1).</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Lunch only (roughly 1pm–6pm, closed evenings). Arrive right at noon to avoid the serious wait. The tuna tostada and pescado a la talla (red/green grilled whole fish) are the must-orders. Cash and card accepted. Opened in 1998 by chef Gabriela Cámara.</div>
+        </div>
       </div>
     </div>
 
@@ -932,6 +1044,7 @@
         <div class="venue-details">
           <span class="venue-detail">🚶 Neighborhood walk</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Libreria+Porrua+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Wander the tree-lined Roma streets. Pop into Mooni art gallery too.</div>
       </div>
     </div>
@@ -949,6 +1062,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma area</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Abrasamar+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -971,6 +1085,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Bar+Mauro+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -1018,6 +1133,7 @@
         <div class="venue-details">
           <span class="venue-detail">🚶 Neighborhood walk</span>
         </div>
+        <div class="venue-address">Colima 129, Roma Norte · <a href="https://www.google.com/maps/search/Mooni+gallery+Colima+129+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Browse the gallery, then wander the Roma streets.</div>
       </div>
     </div>
@@ -1035,6 +1151,7 @@
         <div class="venue-details">
           <span class="venue-detail">🚶 Walking distance</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Libreria+Porrua+Roma+Norte+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
     </div>
 
@@ -1051,6 +1168,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Comal+Oculto+Roma+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -1078,12 +1196,18 @@
         <div class="venue-top">
           <div>
             <div class="venue-name">CHARCO</div>
-            <div class="venue-type">Restaurant + drinks</div>
+            <div class="venue-type">Restaurant + cocktails + natural wine</div>
           </div>
           <span class="venue-tag food">Food</span>
         </div>
         <div class="venue-details">
-          <span class="venue-detail">📍 Roma</span>
+          <span class="venue-detail">📍 Centro Histórico</span>
+        </div>
+        <div class="venue-address">Guatemala 24, Centro · <a href="https://www.google.com/maps/search/CHARCO+Guatemala+24+Centro+Historico+Mexico+City" target="_blank">Maps ↗</a></div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Modest storefront on Guatemala street in Centro Histórico, a few blocks north of the Zócalo. Street-level entrance, look for the signage.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Open Wed–Sun 1pm–10pm. Cocktails, natural wine, and shareable dishes. Also a cultural venue — check their Instagram @charco.rest for events. Reservations recommended on weekends.</div>
         </div>
       </div>
 
@@ -1107,6 +1231,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Fantasma+natural+wine+Roma+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -1127,6 +1252,7 @@
     <div class="time-block">
       <div class="time-label">9:00 AM — Market</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/MercadoLagunillaBldgDF.JPG/1280px-MercadoLagunillaBldgDF.JPG')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Tianguis La Lagunilla</div>
@@ -1142,12 +1268,18 @@
         </div>
         <div class="venue-address">Near Eje 1 Norte, Lagunilla · <a href="https://www.google.com/maps/search/Tianguis+La+Lagunilla+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Arrive early (9–10am) for best selection and fewer crowds. Bring cash. Bargain!</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding it</strong>The Sunday tianguis sprawls along streets near Av. Paseo de la Reforma in Colonia Morelos. Not one building — look for the massive overflow of street vendors taking over entire blocks. Nearest Metro: Garibaldi-Lagunilla (Line B).</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Bring cash in small bills — most vendors don't take cards. Bargaining is expected. Watch your belongings — keep phone in front pocket. You'll find antique furniture, vintage records, first-edition books, clothing, electronics, and folk art. Wear comfortable shoes — uneven surfaces everywhere.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">11:30 AM — Library</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Biblioteca_Vasconcelos%2C_Ciudad_de_M%C3%A9xico%2C_M%C3%A9xico%2C_2015-07-20%2C_DD_16-18_HDR.JPG/1280px-Biblioteca_Vasconcelos%2C_Ciudad_de_M%C3%A9xico%2C_M%C3%A9xico%2C_2015-07-20%2C_DD_16-18_HDR.JPG')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Biblioteca Vasconcelos</div>
@@ -1163,12 +1295,18 @@
         </div>
         <div class="venue-address">Eje 1 Norte, Buenavista · <a href="https://www.google.com/maps/search/Biblioteca+Vasconcelos+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">~1.5 km walk from La Lagunilla. Both are in the north part of the city — pair perfectly together. Jaw-dropping architecture.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Main entrance faces a garden on Eje 1 Norte in the Buenavista neighborhood. Nearest Metro: Buenavista station. Security guards check bags at entrance; backpacks must be checked on the first floor before going upstairs.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Completely free. Keep quiet — it's a working library. Photography allowed for personal use, no flash. No food or drink inside. Bring a light jacket — cool airflow in some areas. Look for Gabriel Orozco's whale skeleton ("Ballena") hanging in the center.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">1:00 PM — Walk South Through Centro</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Z%C3%B3calo%2C_Ciudad_de_M%C3%A9xico_%2832846556446%29_%28cropped%29.jpg/1280px-Z%C3%B3calo%2C_Ciudad_de_M%C3%A9xico_%2832846556446%29_%28cropped%29.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Plaza de la Constitución (Zócalo)</div>
@@ -1179,13 +1317,20 @@
         <div class="venue-details">
           <span class="venue-detail">🚗 10 min Uber from library</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Zocalo+Plaza+de+la+Constitucion+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Uber or walk south from Vasconcelos through Centro to the massive Zócalo.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding it</strong>Open public square — no entrance or ticket needed. Bordered by the Metropolitan Cathedral (north), National Palace (east), and government buildings (south). Nearest Metro: Zócalo (Line 2), exits directly onto the plaza.</div>
+          <div class="venue-expand-item"><strong>Tips</strong>The massive Mexican flag at the center is lowered at 6pm daily in a ceremonial display. The National Palace (free, Tue–Sun) with Diego Rivera murals is right on the east side. Street food vendors around the edges. This is the heart of Centro Histórico.</div>
+        </div>
       </div>
     </div>
 
     <div class="time-block">
       <div class="time-label">1:30 PM — Museum</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Templo_Mayor_50.jpg/1280px-Templo_Mayor_50.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Templo Mayor Museum</div>
@@ -1199,8 +1344,13 @@
           <span class="venue-detail">💰 Free on Sundays!</span>
           <span class="venue-detail">⏱️ 1–1.5 hrs</span>
         </div>
-        <div class="venue-address"><a href="https://www.google.com/maps/search/Templo+Mayor+Museum+Mexico+City" target="_blank">Maps ↗</a></div>
+        <div class="venue-address">Seminario St, next to Cathedral · <a href="https://www.google.com/maps/search/Templo+Mayor+Museum+Mexico+City" target="_blank">Maps ↗</a></div>
         <div class="venue-note">Free admission on Sundays. Incredible Aztec archaeology. Right next to Zócalo.</div>
+        <div class="venue-expand-btn" onclick="toggleExpand(this)">Details ▾</div>
+        <div class="venue-expand">
+          <div class="venue-expand-item"><strong>Finding the entrance</strong>Entrance is on Seminario Street, just northeast of the Zócalo and to the right of the Metropolitan Cathedral. The entrance leads downward into the archaeological site. Nearest Metro: Zócalo (Line 2).</div>
+          <div class="venue-expand-item"><strong>Tips</strong>Plan 1.5–2 hrs for both the outdoor ruins and the indoor museum. Exhibit labels are mostly in Spanish — bring a translation app. Non-flash photography allowed. The outdoor ruins have no shade; bring sunscreen and a hat. Free on Sundays for everyone.</div>
+        </div>
       </div>
     </div>
 
@@ -1218,11 +1368,12 @@
           <span class="venue-detail">🚶 Walking distance from Zócalo</span>
           <span class="venue-detail">📍 Centro area</span>
         </div>
+        <div class="venue-address">Guatemala 24, Centro · <a href="https://www.google.com/maps/search/CHARCO+Guatemala+24+Centro+Historico+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
         <div class="alt-label">Or try</div>
-        <div class="alt-item">La Opera <span>Historic grill · 5 min from Zócalo</span></div>
+        <div class="alt-item">La Opera <span>Historic cantina · <a href="https://www.google.com/maps/search/La+Opera+Bar+5+de+Mayo+10+Centro+Mexico+City" target="_blank" style="color:var(--accent2)">Maps ↗</a></span></div>
       </div>
     </div>
 
@@ -1276,6 +1427,7 @@
         <div class="venue-details">
           <span class="venue-detail">📍 Roma</span>
         </div>
+        <div class="venue-address"><a href="https://www.google.com/maps/search/Rimessa+Vinos+Roma+Mexico+City" target="_blank">Maps ↗</a></div>
       </div>
 
       <div class="alt-options">
@@ -1497,6 +1649,13 @@ function showMarkersForDay(day) {
   } else if (bounds.length === 1) {
     map.setView(bounds[0], 15);
   }
+}
+
+// Expandable venue details
+function toggleExpand(btn) {
+  const card = btn.closest('.venue-card');
+  card.classList.toggle('expanded');
+  btn.textContent = card.classList.contains('expanded') ? 'Details ▴' : 'Details ▾';
 }
 </script>
 </body>

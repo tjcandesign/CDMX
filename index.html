@@ -276,6 +276,45 @@
     background: linear-gradient(transparent, rgba(26,26,26,0.9));
   }
 
+  /* Hero banner */
+  .hero-banner {
+    width: 100%;
+    height: 200px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Vista_a%C3%A9rea_de_la_colonia_Roma_Sur.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    position: relative;
+  }
+  .hero-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    background: linear-gradient(transparent, var(--bg));
+  }
+  .hero-banner-text {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index: 1;
+  }
+  .hero-banner-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .hero-banner-text h1 span { color: var(--accent); }
+  .hero-banner-text p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
   /* Expandable details */
   .venue-expand-btn {
     margin-top: 8px;
@@ -412,6 +451,70 @@
   .leaflet-popup-content { font-family: -apple-system, system-ui, sans-serif !important; font-size: 13px !important; }
   .leaflet-popup-content strong { color: var(--accent); }
 
+  /* Persistent map labels */
+  .leaflet-tooltip {
+    background: rgba(13,13,13,0.85) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    font-family: -apple-system, system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 3px 8px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+  }
+  .leaflet-tooltip::before {
+    border-top-color: rgba(13,13,13,0.85) !important;
+  }
+  .leaflet-tooltip-top::before {
+    border-top-color: rgba(13,13,13,0.85) !important;
+  }
+  .leaflet-tooltip-bottom::before {
+    border-bottom-color: rgba(13,13,13,0.85) !important;
+  }
+  .leaflet-tooltip-left::before {
+    border-left-color: rgba(13,13,13,0.85) !important;
+  }
+  .leaflet-tooltip-right::before {
+    border-right-color: rgba(13,13,13,0.85) !important;
+  }
+  .map-popup-inner {
+    min-width: 160px;
+  }
+  .map-popup-inner .popup-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .map-popup-inner .popup-type {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .map-popup-inner .popup-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .map-popup-inner .popup-note {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .map-popup-inner .popup-link {
+    font-size: 12px;
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
   /* Overview tab */
   .overview-grid {
     display: grid;
@@ -458,6 +561,26 @@
     border-radius: 6px;
     background: rgba(255,255,255,0.06);
     color: var(--text);
+  }
+
+  /* Overview card images */
+  .overview-card-img {
+    height: 100px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .overview-card-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(transparent, var(--card));
   }
 
   /* Home base info */
@@ -562,11 +685,14 @@
 </head>
 <body>
 
-<div class="header">
-  <div class="header-inner">
-    <div class="trip-title">CDMX <span>March 4–9</span></div>
-    <div class="trip-subtitle">Roma Norte — 5 nights</div>
+<div class="hero-banner">
+  <div class="hero-banner-text">
+    <h1>CDMX <span>March 4–9</span></h1>
+    <p>Roma Norte — 5 nights with Melissa</p>
   </div>
+</div>
+
+<div class="header">
   <div class="tabs" id="tabs">
     <button class="tab active" data-day="overview">Overview<span class="day-label">All days</span></button>
     <button class="tab" data-day="wed">Wed 4th<span class="day-label">Arrival</span></button>
@@ -595,6 +721,7 @@
 
     <div class="overview-grid">
       <div class="overview-card" onclick="switchDay('wed')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/10/Avenida_%C3%81lvaro_Obreg%C3%B3n%2C_Colonia_Roma%2C_Ciudad_de_M%C3%A9xico..jpg')"></div>
         <div class="overview-day">Wednesday</div>
         <div class="overview-date">March 4 — Arrival</div>
         <div class="overview-theme">Check in at 4pm → neighborhood dinner & drinks</div>
@@ -604,6 +731,7 @@
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('thu')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/94/Musee_National_Anthropologie-Entree.jpg')"></div>
         <div class="overview-day">Thursday</div>
         <div class="overview-date">March 5 — Rainy Day Museums</div>
         <div class="overview-theme">Antropología Museum + indoor activities</div>
@@ -614,6 +742,7 @@
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('fri')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/81/Bosque_de_Chapultepec_-_View_from_Northwest_terrace_-_Chapultepec_Castle_-_Mexico_2024.jpg')"></div>
         <div class="overview-day">Friday</div>
         <div class="overview-date">March 6 — Chapultepec & Roma</div>
         <div class="overview-theme">Castle + Art Modern + Contramar walk-in lunch</div>
@@ -624,6 +753,7 @@
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('sat')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Vista_a%C3%A9rea_de_la_colonia_Roma_Sur.jpg')"></div>
         <div class="overview-day">Saturday</div>
         <div class="overview-date">March 7 — Roma Neighborhood Day</div>
         <div class="overview-theme">Sleep in, explore Roma, galleries, wine night</div>
@@ -634,6 +764,7 @@
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('sun')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/b2/La_Lagunilla_CDMX_1.jpg')"></div>
         <div class="overview-day">Sunday</div>
         <div class="overview-date">March 8 — Market + Library</div>
         <div class="overview-theme">La Lagunilla flea market → Biblioteca Vasconcelos → Centro</div>
@@ -645,12 +776,12 @@
         </div>
       </div>
       <div class="overview-card" onclick="switchDay('mon')">
+        <div class="overview-card-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c7/Nuevas_Terminales_AICM.jpg')"></div>
         <div class="overview-day">Monday</div>
         <div class="overview-date">March 9 — Fly Home</div>
         <div class="overview-theme">MEX → ATL → DCA · Departs 11:30am</div>
         <div class="overview-highlights">
           <span class="overview-chip">DL576 · DL325</span>
-          <span class="overview-chip">G7OWXH</span>
         </div>
       </div>
     </div>
@@ -696,7 +827,6 @@
       </div>
       <div class="flight-conf">
         <span>Melissa Cichecki</span>
-        <span class="flight-conf-code">G7OWXH</span>
       </div>
     </div>
 
@@ -989,6 +1119,7 @@
     <div class="time-block">
       <div class="time-label">11:00 AM — Walk Through Park</div>
       <div class="venue-card">
+        <div class="venue-photo small" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/eb/Museo_de_Arte_Moderno_desde_un_dron_01.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Museo de Arte Moderno</div>
@@ -1009,6 +1140,7 @@
     <div class="time-block">
       <div class="time-label">12:30 PM — Lunch</div>
       <div class="venue-card">
+        <div class="venue-photo hero" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/59/Contramar_%2844747687650%29.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Contramar</div>
@@ -1106,6 +1238,7 @@
     <div class="time-block">
       <div class="time-label">10:00 AM — Brunch / Late Start</div>
       <div class="venue-card">
+        <div class="venue-photo small" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Jenni%27s_Quesadillas_-_Quesadillas_Elenita_%282025%29_1.jpg')"></div>
         <div class="venue-top">
           <div>
             <div class="venue-name">Jenni's Quesadillas</div>
@@ -1479,7 +1612,6 @@
       </div>
       <div class="flight-conf">
         <span>Melissa Cichecki</span>
-        <span class="flight-conf-code">G7OWXH</span>
       </div>
     </div>
   </div>
@@ -1540,43 +1672,43 @@ btnMap.addEventListener('click', () => {
 
 // Map
 const locations = {
-  hotel: { lat: 19.4145, lng: -99.1618, name: 'Hotel — Medellín 242', cat: 'home', days: ['overview','wed','thu','fri','sat','sun','mon'] },
+  hotel: { lat: 19.4145, lng: -99.1618, name: 'Hotel', label: 'Home Base', cat: 'home', type: 'Medellín 242, Roma Norte', days: ['overview','wed','thu','fri','sat','sun','mon'] },
   // Food
-  fritanguita: { lat: 19.4170, lng: -99.1640, name: 'FRITANGUITA', cat: 'food', days: ['wed'] },
-  tacosValle: { lat: 19.4155, lng: -99.1630, name: 'Tacos del Valle', cat: 'food', days: ['wed'] },
-  stellas: { lat: 19.4160, lng: -99.1645, name: "Stella's", cat: 'food', days: ['wed'] },
-  masala: { lat: 19.4135, lng: -99.1622, name: 'Masala y Maíz', cat: 'food', days: ['thu','wed'] },
-  contramar: { lat: 19.4195, lng: -99.1672, name: 'Contramar', cat: 'food', days: ['fri'] },
-  abrasamar: { lat: 19.4148, lng: -99.1625, name: 'ABRASAMAR', cat: 'food', days: ['fri','sat'] },
-  jennis: { lat: 19.4152, lng: -99.1635, name: "Jenni's Quesadillas", cat: 'food', days: ['sat'] },
-  laOpera: { lat: 19.4350, lng: -99.1398, name: 'La Opera', cat: 'food', days: ['sun'] },
-  compa: { lat: 19.4162, lng: -99.1600, name: 'Mi Compa Chava', cat: 'food', days: ['fri','sat','sun'] },
-  charco: { lat: 19.4138, lng: -99.1610, name: 'CHARCO', cat: 'food', days: ['wed','sat','sun'] },
-  maizajo: { lat: 19.4175, lng: -99.1650, name: 'Maizajo', cat: 'food', days: ['thu','sat','sun'] },
-  comal: { lat: 19.4180, lng: -99.1660, name: 'Comal Oculto', cat: 'food', days: ['fri','sat'] },
+  fritanguita: { lat: 19.4170, lng: -99.1640, name: 'FRITANGUITA', label: 'Fritanguita', cat: 'food', type: 'Tacos — Roma Norte', note: 'Perfect first-night tacos', days: ['wed'] },
+  tacosValle: { lat: 19.4155, lng: -99.1630, name: 'Tacos del Valle', label: 'Tacos del Valle', cat: 'food', type: 'Tacos', days: ['wed'] },
+  stellas: { lat: 19.4160, lng: -99.1645, name: "Stella's", label: "Stella's", cat: 'food', type: 'Greek', days: ['wed'] },
+  masala: { lat: 19.4135, lng: -99.1622, name: 'Masala y Maíz', label: 'Masala y Maíz', cat: 'food', type: 'Indian-Mexican · 1 Michelin star', note: 'Noon–6pm only. Reservations recommended.', days: ['thu','wed'] },
+  contramar: { lat: 19.4195, lng: -99.1672, name: 'Contramar', label: 'Contramar', cat: 'food', type: 'Iconic seafood · Durango 200', note: 'Walk-in at noon. Tuna tostadas & grilled fish.', days: ['fri'] },
+  abrasamar: { lat: 19.4148, lng: -99.1625, name: 'ABRASAMAR', label: 'Abrasamar', cat: 'food', type: 'Seafood', days: ['fri','sat'] },
+  jennis: { lat: 19.4152, lng: -99.1635, name: "Jenni's Quesadillas", label: "Jenni's", cat: 'food', type: 'Street quesadillas', note: 'Beloved neighborhood spot.', days: ['sat'] },
+  laOpera: { lat: 19.4350, lng: -99.1398, name: 'La Opera', label: 'La Opera', cat: 'food', type: 'Historic cantina · Centro', note: 'Beautiful 19th-century interior.', days: ['sun'] },
+  compa: { lat: 19.4162, lng: -99.1600, name: 'Mi Compa Chava', label: 'Mi Compa Chava', cat: 'food', type: 'Marisquería', days: ['fri','sat','sun'] },
+  charco: { lat: 19.4138, lng: -99.1610, name: 'CHARCO', label: 'CHARCO', cat: 'food', type: 'Restaurant + cocktails + natural wine', note: 'Guatemala 24, Centro. Wed–Sun 1–10pm.', days: ['wed','sat','sun'] },
+  maizajo: { lat: 19.4175, lng: -99.1650, name: 'Maizajo', label: 'Maizajo', cat: 'food', type: 'Restaurant', days: ['thu','sat','sun'] },
+  comal: { lat: 19.4180, lng: -99.1660, name: 'Comal Oculto', label: 'Comal Oculto', cat: 'food', type: 'Traditional Mexican', days: ['fri','sat'] },
   // Drinks
-  niv: { lat: 19.4148, lng: -99.1658, name: 'NIV Wine Bar', cat: 'drinks', days: ['wed','sun'] },
-  hugo: { lat: 19.4140, lng: -99.1650, name: 'Hugo Wine Bar', cat: 'drinks', days: ['wed','sat'] },
-  cmb: { lat: 19.4158, lng: -99.1648, name: 'Wine Bar by CMB', cat: 'drinks', days: ['wed'] },
-  palomilla: { lat: 19.4165, lng: -99.1655, name: 'Salón Palomilla', cat: 'drinks', days: ['thu','fri'] },
-  barMauro: { lat: 19.4172, lng: -99.1642, name: 'Bar Mauro', cat: 'drinks', days: ['fri','thu'] },
-  lenez: { lat: 19.4155, lng: -99.1615, name: 'LENEZ Gastro-Bar', cat: 'drinks', days: ['fri','thu'] },
-  fantasma: { lat: 19.4142, lng: -99.1640, name: 'Fantasma', cat: 'drinks', days: ['sat','sun'] },
-  rimessa: { lat: 19.4135, lng: -99.1632, name: 'Rimessa Vinos', cat: 'drinks', days: ['sat','sun'] },
+  niv: { lat: 19.4148, lng: -99.1658, name: 'NIV Wine Bar', label: 'NIV', cat: 'drinks', type: 'Natural wine bar', note: 'Relaxed vibe, great first-night spot.', days: ['wed','sun'] },
+  hugo: { lat: 19.4140, lng: -99.1650, name: 'Hugo Wine Bar', label: 'Hugo', cat: 'drinks', type: 'Wine bar', days: ['wed','sat'] },
+  cmb: { lat: 19.4158, lng: -99.1648, name: 'Wine Bar by CMB', label: 'CMB', cat: 'drinks', type: 'Wine bar', days: ['wed'] },
+  palomilla: { lat: 19.4165, lng: -99.1655, name: 'Salón Palomilla', label: 'Palomilla', cat: 'drinks', type: 'Cocktail bar', days: ['thu','fri'] },
+  barMauro: { lat: 19.4172, lng: -99.1642, name: 'Bar Mauro', label: 'Bar Mauro', cat: 'drinks', type: 'Cocktail bar', days: ['fri','thu'] },
+  lenez: { lat: 19.4155, lng: -99.1615, name: 'LENEZ Gastro-Bar', label: 'LENEZ', cat: 'drinks', type: 'Wine gastro-bar', days: ['fri','thu'] },
+  fantasma: { lat: 19.4142, lng: -99.1640, name: 'Fantasma', label: 'Fantasma', cat: 'drinks', type: 'Natural wine store', note: 'Bottles to go or drink in.', days: ['sat','sun'] },
+  rimessa: { lat: 19.4135, lng: -99.1632, name: 'Rimessa Vinos', label: 'Rimessa', cat: 'drinks', type: 'Wine store', days: ['sat','sun'] },
   // Culture
-  antropologia: { lat: 19.4260, lng: -99.1862, name: 'Museo Nacional de Antropología', cat: 'culture', days: ['thu'] },
-  modo: { lat: 19.4192, lng: -99.1630, name: 'MODO Museum', cat: 'culture', days: ['thu'] },
-  vasconcelos: { lat: 19.4465, lng: -99.1509, name: 'Biblioteca Vasconcelos', cat: 'culture', days: ['sun'] },
-  castle: { lat: 19.4205, lng: -99.1818, name: 'Chapultepec Castle', cat: 'culture', days: ['fri'] },
-  mam: { lat: 19.4230, lng: -99.1780, name: 'Museo de Arte Moderno', cat: 'culture', days: ['fri'] },
-  zocalo: { lat: 19.4326, lng: -99.1332, name: 'Zócalo', cat: 'culture', days: ['sun'] },
-  temploMayor: { lat: 19.4348, lng: -99.1316, name: 'Templo Mayor', cat: 'culture', days: ['sun'] },
-  porrua: { lat: 19.4168, lng: -99.1620, name: 'Librería Porrúa', cat: 'culture', days: ['fri','sat'] },
-  mooni: { lat: 19.4155, lng: -99.1610, name: 'Mooni Gallery', cat: 'culture', days: ['thu','sat'] },
+  antropologia: { lat: 19.4260, lng: -99.1862, name: 'Museo Nacional de Antropología', label: 'Antropología', cat: 'culture', type: 'World-class anthropology museum', note: '9am–6pm · $210 MXN · Plan 3–4 hrs', days: ['thu'] },
+  modo: { lat: 19.4192, lng: -99.1630, name: 'MODO Museum', label: 'MODO', cat: 'culture', type: 'Design & objects museum', note: '10am–6pm · $60 MXN · 45 min visit', days: ['thu'] },
+  vasconcelos: { lat: 19.4465, lng: -99.1509, name: 'Biblioteca Vasconcelos', label: 'Vasconcelos', cat: 'culture', type: 'Stunning megabiblioteca', note: 'Free · 8:30am–7:30pm daily', days: ['sun'] },
+  castle: { lat: 19.4205, lng: -99.1818, name: 'Chapultepec Castle', label: 'Castle', cat: 'culture', type: 'Hilltop castle with city views', note: '9am–5pm · $210 MXN · Arrive at opening', days: ['fri'] },
+  mam: { lat: 19.4230, lng: -99.1780, name: 'Museo de Arte Moderno', label: 'Arte Moderno', cat: 'culture', type: 'Modern art in Chapultepec', note: '10:30am–5:30pm · $70 MXN', days: ['fri'] },
+  zocalo: { lat: 19.4326, lng: -99.1332, name: 'Zócalo', label: 'Zócalo', cat: 'culture', type: 'Main square — heart of CDMX', note: 'Flag ceremony at 6pm daily', days: ['sun'] },
+  temploMayor: { lat: 19.4348, lng: -99.1316, name: 'Templo Mayor', label: 'Templo Mayor', cat: 'culture', type: 'Aztec ruins beside Zócalo', note: '9am–5pm · Free on Sundays!', days: ['sun'] },
+  porrua: { lat: 19.4168, lng: -99.1620, name: 'Librería Porrúa', label: 'Bookshops', cat: 'culture', type: 'Bookshops in Roma', days: ['fri','sat'] },
+  mooni: { lat: 19.4155, lng: -99.1610, name: 'Mooni Gallery', label: 'Mooni', cat: 'culture', type: 'Contemporary art gallery', note: 'Colima 129 · Free · Emerging artists', days: ['thu','sat'] },
   // Wellness
-  atma: { lat: 19.4178, lng: -99.1595, name: 'Ātma Yoga', cat: 'wellness', days: ['thu'] },
+  atma: { lat: 19.4178, lng: -99.1595, name: 'Ātma Yoga', label: 'Yoga', cat: 'wellness', type: 'Bilingual yoga (Spanish + English)', note: 'From 6am · $300 MXN · Book via Mindbody', days: ['thu'] },
   // Shopping
-  lagunilla: { lat: 19.4415, lng: -99.1343, name: 'Tianguis La Lagunilla', cat: 'shopping', days: ['sun'] },
+  lagunilla: { lat: 19.4415, lng: -99.1343, name: 'Tianguis La Lagunilla', label: 'La Lagunilla', cat: 'shopping', type: 'Sunday flea market', note: '9am–5pm · Cash only · Bargain!', days: ['sun'] },
 };
 
 const catColors = {
@@ -1624,6 +1756,24 @@ function initMap() {
   showMarkersForDay(activeTab ? activeTab.dataset.day : 'overview');
 }
 
+function buildPopup(loc) {
+  const color = catColors[loc.cat];
+  const catLabel = loc.cat.charAt(0).toUpperCase() + loc.cat.slice(1);
+  const bgColor = loc.cat === 'food' ? 'rgba(232,93,71,0.15)' :
+                  loc.cat === 'drinks' ? 'rgba(163,71,232,0.15)' :
+                  loc.cat === 'culture' ? 'rgba(71,232,163,0.15)' :
+                  loc.cat === 'wellness' ? 'rgba(71,184,232,0.15)' :
+                  loc.cat === 'shopping' ? 'rgba(232,197,71,0.15)' : 'rgba(255,255,255,0.1)';
+  let html = `<div class="map-popup-inner">`;
+  html += `<div class="popup-name">${loc.name}</div>`;
+  if (loc.type) html += `<div class="popup-type">${loc.type}</div>`;
+  if (loc.cat !== 'home') html += `<span class="popup-tag" style="background:${bgColor};color:${color}">${catLabel}</span>`;
+  if (loc.note) html += `<div class="popup-note">${loc.note}</div>`;
+  html += `<a class="popup-link" href="https://www.google.com/maps/search/${encodeURIComponent(loc.name + ' Mexico City')}" target="_blank">Open in Maps ↗</a>`;
+  html += `</div>`;
+  return html;
+}
+
 function showMarkersForDay(day) {
   markers.forEach(m => map.removeLayer(m));
   markers = [];
@@ -1638,7 +1788,17 @@ function showMarkersForDay(day) {
         zIndexOffset: isHome ? 1000 : 0
       }).addTo(map);
 
-      marker.bindPopup(`<strong>${loc.name}</strong>`);
+      // Persistent small label
+      marker.bindTooltip(loc.label || loc.name, {
+        permanent: true,
+        direction: 'right',
+        offset: [8, 0],
+        className: 'map-label'
+      });
+
+      // Expanded popup on click
+      marker.bindPopup(buildPopup(loc), { maxWidth: 220 });
+
       markers.push(marker);
       bounds.push([loc.lat, loc.lng]);
     }
